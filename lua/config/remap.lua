@@ -4,9 +4,8 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', '<Leader>R', ':so $XDG_CONFIG_HOME/nvim/init.lua<CR>')
 vim.keymap.set('n', '<Leader>r', ':so<CR>')
 
--- completion
-vim.keymap.set('n', '<C-Space>', 'i<C-n><Esc>')
-vim.keymap.set('i', '<C-Space>', '<C-n>')
+-- wrapping
+vim.keymap.set('n', '<Leader>w', ':ToggleWrap<CR>', { desc = 'Toggle text wrapping' })
 
 -- check mappings
 vim.keymap.set('n', '?', ':map<CR>')

@@ -47,13 +47,26 @@ vim.cmd.colorscheme = 'sorbet'
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
 
+vim.opt.guicursor =
+  'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
+
+vim.api.nvim_create_user_command('TermHl', function()
+  local b = vim.api.nvim_create_buf(false, true)
+  local chan = vim.api.nvim_open_term(b, {})
+  vim.api.nvim_chan_send(chan, table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n'))
+  vim.api.nvim_win_set_buf(0, b)
+end, { desc = 'Highlights ANSI termcodes in curbuf' })
+
+vim.api.nvim_create_user_command('ToggleWrap', function()
+  vim.opt.wrap = not vim.opt.wrap:get()
+  vim.opt.linebreak = not vim.opt.linebreak:get()
+end, { desc = 'Toggle text wrapping' })
+
 if vim.g.neovide then
-  vim.o.guifont = 'CaskaydiaCove NF:h9'
-  vim.opt.guicursor =
-    'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'
   local alpha = function()
     return string.format('%x', math.floor((255 * vim.g.transparency) or 0.8))
   end
+  vim.o.guifont = 'CaskaydiaCove NF:h9'
   -- g:neovide_opacity should be 0 if you want to unify transparency of content and title bar.
   vim.g.neovide_opacity = 0.8
   vim.g.transparency = 0.8

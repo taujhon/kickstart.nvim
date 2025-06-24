@@ -272,9 +272,11 @@ require('lazy').setup({
             },
           },
         },
-        texlab = {
-          cmd = { 'texlab' },
-        },
+        texlab = { cmd = { 'texlab' } },
+        ruff = { cmd = { 'ruff' } },
+        bashls = { cmd = { 'bash-language-server' } },
+        jsonls = { cmd = { 'vscode-json-language-server' } },
+        intelephense = { cmd = { 'intelephense' } },
       }
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
